@@ -6,9 +6,15 @@ pipeline {
 
   }
   stages {
-    stage('build') {
+    stage('Inicio') {
       steps {
-        sh 'mvn --version'
+        echo 'Hola de stage Inicio'
+      }
+    }
+
+    stage('Test2') {
+      steps {
+        echo 'TEst2'
       }
     }
 
