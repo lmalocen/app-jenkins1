@@ -21,8 +21,10 @@ pipeline {
     }
    stage('Push Registry') {
       steps {
-        sh 'sudo docker tag app:test lmalocen/app:stable'
-        sh 'sudo docker push lmalocen/app:stable'
+        withCredentials([usernamePassword(credentialsId: '19be14b7-be3d-4a77-9b78-97f6dbd8db74', passwordVariable: 'password', usernameVariable: 'user')]) {
+	  sh 'sudo docker tag app:test lmalocen/app:stable'
+          sh 'sudo docker push lmalocen/app:stable'
+	}
       }
     }
   }
