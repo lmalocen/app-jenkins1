@@ -10,12 +10,18 @@ pipeline {
     stage('Test') {
       steps {
         echo 'TEST'
-        sh ' /bin/nc -vz localhost 22'
+        sh 'sudo docker run --rm --name app -id -p 80:80 app:test'
+        sh '/bin/nc -vz localhost 80'
       }
+    post {
+        always {
+            sh 'sudo docker container stop app'
+        }
+    }
     }
    stage('Push Registry') {
       steps {
-        sh 'sudo docker tag app:test app:stable'
+        sh 'sudo docker tag app:test lalocen/app:stable'
         sh 'sudo docker push lmalocen/app:stable'
       }
     }
