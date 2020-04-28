@@ -21,7 +21,7 @@ pipeline {
     }
    stage('Push Registry') {
       steps {
-        sh 'sudo docker tag app:test lalocen/app:stable'
+        sh 'sudo docker tag app:test lmalocen/app:stable'
         sh 'sudo docker push lmalocen/app:stable'
       }
     }
