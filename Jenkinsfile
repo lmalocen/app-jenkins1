@@ -3,18 +3,21 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'sudo docker build -t app .'
+        sh 'sudo docker build -t app:test .'
       }
     }
 
     stage('Test') {
       steps {
         echo 'TEST'
+        sh ' /bin/nc -vc localhost 22'
+        sh ' /bin/nc -vc localhost 80'
       }
     }
-   stage('Deploy') {
+   stage('Push Registry') {
       steps {
-        echo 'DEPLOY'
+        sh 'docker tag app:test app:stable'
+        sh 'docker push app:test app:stable'
       }
     }
   }
